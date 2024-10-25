@@ -103,7 +103,7 @@ int main(void)
   HAL_Delay(1000 * 60 * 10);
   SetBreathingLight(60, 399, 1, DIRECTION_UP);
   HAL_Delay(1000 * 60 * 60);
-  SetBreathingLight(399, 50, 1, DIRECTION_DOWN);
+  SetBreathingLight(399, 30, 1, DIRECTION_DOWN);
 
   /* USER CODE END 2 */
 
@@ -113,6 +113,14 @@ int main(void)
   {
     HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
     HAL_Delay(300);
+
+    if (HAL_GPIO_ReadPin(RAY_GPIO_Port, RAY_Pin) == GPIO_PIN_SET)
+    {
+      HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+      SetBreathingLight(30, 399, 1, DIRECTION_UP);
+      HAL_Delay(1000 * 60 * 5);
+      SetBreathingLight(399, 30, 1, DIRECTION_DOWN);
+    }
 
     /* USER CODE END WHILE */
 
